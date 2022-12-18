@@ -1,0 +1,28 @@
+name: Profile NPM Script
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: ref to build
+        type: string
+        required: true
+      script:
+        description: npm script to run
+        type: string
+        default: 'test:js'
+
+jobs:
+  profile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: google/site-kit-wp
+          ref: ${{ inputs.ref }}
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - run: npm run ${{ inputs.script }}
