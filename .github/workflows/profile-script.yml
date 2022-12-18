@@ -25,4 +25,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
+      - run: npm ci
+
       - run: npm run ${{ inputs.script }}
